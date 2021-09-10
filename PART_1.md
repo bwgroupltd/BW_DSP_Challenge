@@ -50,61 +50,19 @@ In this section you will configure the Raspberry Pi to play audio files via the 
     8. Use 'aplay' to play the wav file - ensure audio plays out of the HifiBerry (Phono/SPDIF).
         WARNING: PLAYBACK WILL BE LOUD!!
     
-    9. Install & Update HifiBerry Toolkit
+    9. Install & Update HifiBerry Toolkit (allows SigmaStudio & CLI to connect to the DSP):
 			sudo pip3 install --upgrade hifiberrydsp
 			bash <(curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit)
-    
-    10. Get, build and install HifiBerry TCP-IP Server (allows SigmaStudio to connect to the DSP):
-            https://github.com/bang-olufsen/create
-            IMPORTANT: Use You MUST switch branches and use the 'BEOCreate1' branch.
-						git checkout beocreate1.
-
-            cd SigmaTcpDaemon
-            cmake .
-            make
-            sudo cp sigmaTcpDaemon /usr/local/bin/beocreate-tcp
-            sudo chown root /usr/local/bin/beocreate-tcp
-            sudo chmod u+s /usr/local/bin/beocreate-tcp
-            sudo chmod go+rx /usr/local/bin/beocreate-tcp
-            cd ../SigmaClientTool
-            cmake .
-            make
-            sudo cp SigmaClientTool /usr/local/bin/beocreate-client
-            sudo chown root /usr/local/bin/beocreate-tcp
-            sudo chmod go+rx /usr/local/bin/beocreate-tcp
-            
-			Copy & Paste this whole section as a single block:
 			
-			---
-            cat <<EOF >beocreate-tcp.service
-            [Unit]
-            Description=Beocreate DSP TCP deamon
-            After=network.target
-            
-            [Service]
-            Type=simple
-            ExecStart=/usr/local/bin/beocreate-tcp
-            StandardOutput=null
-            Restart=on-failure
-            
-            [Install]
-            WantedBy=multi-user.target
-            Alias=beocreate-tcp.service
-            EOF
-            
-			---
-			
-			ctl+c to exit editor
-            sudo mv beocreate-tcp.service /etc/systemd/system
-            sudo systemctl daemon-reload
+			Git Clone from: github.com/hifiberry/hifiberry-dsp
+			cd into cloned hifiberry-dsp folder
+			sudo pip install --upgrade .
+			bash <(curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit)
+			reboot
 
-    11. Start the TCP-IP Server:
-            sudo systemctl start beocreate-tcp
-            
-    IMPORTANT: If You reboot the Pi - You MUST restart the TCP-IP process to talk to SigmaStudio.
-                
-    12. Verify TCP-IP Stack Is Running:
-            sudo systemctl status beocreate-tcp
+    10. Test TCP-=IP Server is running:
+			sudo systemctl status sigmatcp
+			Should say 'ACTIVE'
 ```
 
 ### 1.2: SigmaStudio Setup & Connection to RaspberryPi
@@ -122,7 +80,8 @@ In this section you will configure the DSP programming utility and ensure the Hi
        Note:    There is no obvious SUCCESS message if communications is established.
                 However there IS an error message if it fails.
     8. Click 'Link, Compile, Connect' to build the project.
-    9. On the Hardware tab - Right-click on the ADAU1451.
+	9. Use aplay on the pi to play audio, and ensure moving the Master-Volume fader effects the audio. 
+    10. On the Hardware tab - Right-click on the ADAU1451.
                 Self-Boot-Memory -> Write Latest Compilation Through DSP.
         This should program the DSP project into the HifiBerry DSP.
     10. "Export System Files" (You'll need these later).
