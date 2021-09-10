@@ -100,6 +100,6 @@ In this section you will configure the CLI program to run on the Pi to control t
               3 x Syntax errors
             + 1 x Logic error in setVolume() - it should be pretty obvious to find/fix.
     6. Rebuild the project to produce "dsp-volume" executable.
-    7. Use aplay to playabck an audio file.
-    8. Run the volume control tool ("./dsp-volume") and ensure volume adjustment takes effect.
+    7. Use aplay to playback an audio file.
+    8. Run the volume control tool ("./dsp-volume xx") and ensure volume adjustment takes effect.
 ```
