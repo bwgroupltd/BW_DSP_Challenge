@@ -56,9 +56,10 @@ In this section you will configure the Raspberry Pi to play audio files via the 
     
     10. Get, build and install HifiBerry TCP-IP Server (allows SigmaStudio to connect to the DSP):
             https://github.com/bang-olufsen/create
-            IMPORTANT: Use You MUST use the 'BEOCreate1' branch.
+            IMPORTANT: Use You MUST switch branches and use the 'BEOCreate1' branch.
+						git checkout beocreate1.
 
-            cd SigmaDaemon
+            cd SigmaTcpDaemon
             cmake .
             make
             sudo cp sigmaTcpDaemon /usr/local/bin/beocreate-tcp
@@ -66,12 +67,15 @@ In this section you will configure the Raspberry Pi to play audio files via the 
             sudo chmod u+s /usr/local/bin/beocreate-tcp
             sudo chmod go+rx /usr/local/bin/beocreate-tcp
             cd ../SigmaClientTool
-            make .
+            cmake .
             make
             sudo cp SigmaClientTool /usr/local/bin/beocreate-client
             sudo chown root /usr/local/bin/beocreate-tcp
             sudo chmod go+rx /usr/local/bin/beocreate-tcp
             
+			Copy & Paste this whole section as a single block:
+			
+			---
             cat <<EOF >beocreate-tcp.service
             [Unit]
             Description=Beocreate DSP TCP deamon
@@ -88,6 +92,9 @@ In this section you will configure the Raspberry Pi to play audio files via the 
             Alias=beocreate-tcp.service
             EOF
             
+			---
+			
+			ctl+c to exit editor
             sudo mv beocreate-tcp.service /etc/systemd/system
             sudo systemctl daemon-reload
 

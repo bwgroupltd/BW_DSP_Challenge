@@ -103,7 +103,7 @@ setVolume(
 	binary = (linear / lsbVal);
 	
 	/* Print Volume */
-	printf("Set volume to %d = %fdB\n", volume, dB);
+	printf("Set volume to %d = %.2fdB\n", volume, dB);
 	printf("Hex value of volume to DSP: 0x%.8x\n", binary);
 	
 	/* Transmit To DSP I2C Driver (as ASCII String) */
