@@ -11,7 +11,7 @@ In this section you will configure the Raspberry Pi to play audio files via the 
     3. Update the Pi - Terminal:
             sudo apt-get update
             sudo apt-get upgrade
-        Note: Default update from RaspberryPi OS requires to remove python-colorzero package:
+        Note: Default update from RaspberryPi OS may require to remove python-colorzero package:
             sudo apt autoremove
             sudo apt-get upgrade
         Reboot.
