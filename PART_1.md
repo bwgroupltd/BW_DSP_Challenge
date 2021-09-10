@@ -7,9 +7,8 @@ In this section you will configure the Raspberry Pi to play audio files via the 
 
 ```
     1. Attach HifiBerry to Pi.
-    2. Connect peripherals to Pi (PSU, keyboard, mouse, monitor)
-    3. Boot Pi and connect to internet (WIFI network)
-    4. Update the Pi - Terminal:
+    2. Boot Pi and connect to internet (WIFI network)
+    3. Update the Pi - Terminal:
             sudo apt-get update
             sudo apt-get upgrade
         Note: Default update from RaspberryPi OS requires to remove python-colorzero package:
@@ -17,21 +16,19 @@ In this section you will configure the Raspberry Pi to play audio files via the 
             sudo apt-get upgrade
         Reboot.
 
-    5. Ensure Python is installed:
+    4. Ensure Python, Git & Cmake are installed:
             sudo apt-get install python
-    6. Ensure GIT is installed:
             sudo apt-get install git
-    7. Ensure CMAKE is installed:
             sudo apt-get install -y git cmake
         
-    8. Update /boot/config.txt - Enable SPI & I2S, replace audio driver with HifiBerry.
+    5. Update /boot/config.txt - Enable SPI & I2S, replace audio driver with HifiBerry.
         Note: Config.txt is write-protected by default.
         Quick way to update it:
             Copy /boot/config.txt file to desktop
             Edit file:
                 Uncomment:      dtparam=i2s=on
                 Uncomment:      dtparam=spi=on
-                Comment Out:    dtparam=audio=on
+                Comment-Out:    dtparam=audio=on
                 Add:            dtoverlay=hifiberry-dacplusdsp
             save.
         In Terminal:
@@ -41,7 +38,7 @@ In this section you will configure the Raspberry Pi to play audio files via the 
         Verify changes have been applied.
         Reboot.
     
-    9. Verify HifiBerryDSP board is connected
+    6. Verify HifiBerryDSP board is connected
             aplay -l
             
             **** List of PLAYBACK Hardware Devices ****
@@ -49,15 +46,15 @@ In this section you will configure the Raspberry Pi to play audio files via the 
               Subdevices: 1/1
               Subdevice #0: subdevice #0
 
-    10. Copy a wav file onto Pi.
-    11. Use 'aplay' to play the wav file - ensure audio plays out of the HifiBerry (Phono/SPDIF).
+    7. Copy a wav file onto Pi.
+    8. Use 'aplay' to play the wav file - ensure audio plays out of the HifiBerry (Phono/SPDIF).
         WARNING: PLAYBACK WILL BE LOUD!!
     
-    12. Install & Update HifiBerry Toolkit
+    9. Install & Update HifiBerry Toolkit
 			sudo pip3 install --upgrade hifiberrydsp
 			bash <(curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit)
     
-    13. Get, build and install HifiBerry TCP-IP Server (allows SigmaStudio to connect to the DSP):
+    10. Get, build and install HifiBerry TCP-IP Server (allows SigmaStudio to connect to the DSP):
             https://github.com/bang-olufsen/create
             IMPORTANT: Use You MUST use the 'BEOCreate1' branch.
 
@@ -94,12 +91,12 @@ In this section you will configure the Raspberry Pi to play audio files via the 
             sudo mv beocreate-tcp.service /etc/systemd/system
             sudo systemctl daemon-reload
 
-    14. Start the TCP-IP Server:
+    11. Start the TCP-IP Server:
             sudo systemctl start beocreate-tcp
             
-    IMPORTANT: If You reboot the Pi - You MUST restart the TCP-IP process.
+    IMPORTANT: If You reboot the Pi - You MUST restart the TCP-IP process to talk to SigmaStudio.
                 
-    15. Verify TCP-IP Stack Is Running:
+    12. Verify TCP-IP Stack Is Running:
             sudo systemctl status beocreate-tcp
 ```
 
@@ -111,18 +108,17 @@ In this section you will configure the DSP programming utility and ensure the Hi
         <https://www.analog.com/en/design-center/evaluation-hardware-and-software/software/ss_sigst_02.html>
     2. Connect ethernet cable between PC and Pi.
     3. Set PC & Pi network connections to both use a static IP addresses.
-    4. Ensure PC can 'ping' the Pi.
-    5. Ensure the Pi can 'ping' the PC.
-    6. Open "dacdsp-v11.dspproj" project in SigmaStudio.
-    7. On the "Hardware Configuration" Tab - Right-click, show "TCP-IP settings".
-    8. Enter the IP address of the Pi (Port = 8086), and click 'Open Connection'
+    4. Ensure PC can 'ping' the Pi. Ensure the Pi can 'ping' the PC.
+    5. Open "dacdsp-v11.dspproj" project in SigmaStudio.
+    6. On the "Hardware Configuration" Tab - Right-click, show "TCP-IP settings".
+    7. Enter the IP address of the Pi (Port = 8086), and click 'Open Connection'
        Note:    There is no obvious SUCCESS message if communications is established.
                 However there IS an error message if it fails.
-    9. Click 'Link, Compile, Connect' to build the project.
-    10. On the Hardware tab - Right-click on the ADAU1451.
+    8. Click 'Link, Compile, Connect' to build the project.
+    9. On the Hardware tab - Right-click on the ADAU1451.
                 Self-Boot-Memory -> Write Latest Compilation Through DSP.
         This should program the DSP project into the HifiBerry DSP.
-    11. "Export System Files" (You'll need these later).
+    10. "Export System Files" (You'll need these later).
 ```
 **IMPORTANT: When setting the Ethernet connection on a Windows PC, if you also have WIFI active, you will possibly need to disable the 'Automatic Metric' setting in your advanced IP4 parameters, and instead use an Interface Metric = 1.
 This makes your Windows PC direct traffic to your Ethernet port rather than attempting to talk over the wifi**

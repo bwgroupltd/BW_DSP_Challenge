@@ -35,7 +35,7 @@ uint32_t getVolume(void);
 ** Global Variables
 */
 
-int masterVolAddr 	= 47;
+int masterVolAddr 	= 0x2f;
 float lsbVal 		= pow(2,-24);
 
 /***********************************************************************************

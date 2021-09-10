@@ -14,5 +14,6 @@ However it is STRONGLY recommended you initially target ONE of the filters conta
             Frequency, Q and Gain
     2. Generate the relevant coefficients for a standard biquad filter.
     3. Convert the filter coefficients to a suitable format, and transmit to the DSP.
+	4. Play audio and ensure audio filter produces the desired effect.
 ```
 **Hint: Cross-reference the Volume-Control example against the generated DSP headers to understand how to transmit your coefficients to the DSP**
