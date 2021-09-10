@@ -21,8 +21,8 @@ In the meantime - please skip to the next part of the task.
 
 While the project fits together as a whole, being unable to get a single element working shouldn't mean that you are unable to continue.
 We are looking at ALL aspects of your work, and there are plenty of ways to impress - even if the hardware isn't passing audio!
+
 ---
-In true 'Bake-Off' Technical Challenge style...
 Some instructions are quite thorough (particularly with regard to setting up the hardware). Please read them **carefully** and follow accordingly.
 Other instructions are much more ambiguous. It is upto YOU to work out what is required and fill in the details.
 

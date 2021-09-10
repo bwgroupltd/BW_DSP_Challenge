@@ -1,5 +1,6 @@
 # Bowers & Wilkins: DSP Interview Challenge 2021
 ---
+
 ## Part 1 - System setup
 ### 1.1: Initial Setup
 In this section you will configure the Raspberry Pi to play audio files via the HiFiBerry DSP expander board.
@@ -9,19 +10,19 @@ In this section you will configure the Raspberry Pi to play audio files via the 
     2. Connect peripherals to Pi (PSU, keyboard, mouse, monitor)
     3. Boot Pi and connect to internet (WIFI network)
     4. Update the Pi - Terminal:
-            'sudo apt-get update'
-            'sudo apt-get upgrade'
+            sudo apt-get update
+            sudo apt-get upgrade
         Note: Default update from RaspberryPi OS requires to remove python-colorzero package:
-            'sudo apt autoremove'
-            'sudo apt-get upgrade'
+            sudo apt autoremove
+            sudo apt-get upgrade
         Reboot.
 
     5. Ensure Python is installed:
-            'sudo apt-get install python'
+            sudo apt-get install python
     6. Ensure GIT is installed:
-            'sudo apt-get install git'
+            sudo apt-get install git
     7. Ensure CMAKE is installed:
-            'sudo apt-get install -y git cmake'
+            sudo apt-get install -y git cmake
         
     8. Update /boot/config.txt - Enable SPI & I2S, replace audio driver with HifiBerry.
         Note: Config.txt is write-protected by default.
@@ -41,7 +42,7 @@ In this section you will configure the Raspberry Pi to play audio files via the 
         Reboot.
     
     9. Verify HifiBerryDSP board is connected
-            'aplay -l'
+            aplay -l
             
             **** List of PLAYBACK Hardware Devices ****
             card 0: sndrpihifiberry [snd_rpi_hifiberrydacplusdsp_sou], device 0: Hifiberry DAC+DSP SoundCard HiFi dacplusdsp-codec-0 [Hifiberry DAC+DSP SoundCard HiFi dacplusdsp-codec-0]
@@ -52,7 +53,9 @@ In this section you will configure the Raspberry Pi to play audio files via the 
     11. Use 'aplay' to play the wav file - ensure audio plays out of the HifiBerry (Phono/SPDIF).
         WARNING: PLAYBACK WILL BE LOUD!!
     
-    12. Update HifiBerry Toolkit - 'sudo pip3 install --upgrade hifiberrydsp'
+    12. Install & Update HifiBerry Toolkit
+			sudo pip3 install --upgrade hifiberrydsp
+			bash <(curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit)
     
     13. Get, build and install HifiBerry TCP-IP Server (allows SigmaStudio to connect to the DSP):
             https://github.com/bang-olufsen/create
@@ -133,7 +136,7 @@ In this section you will configure the CLI program to run on the Pi to control t
     4. Note: The build will fail due to a number of DELIBERATE errors.
     5. Debug volume.c.
               3 x Syntax errors
-            + 1 x Logic error (it should be pretty obvious to find).
+            + 1 x Logic error in setVolume() - it should be pretty obvious to find/fix.
     6. Rebuild the project to produce "dsp-volume" executable.
     7. Use aplay to playabck an audio file.
     8. Run the volume control tool ("./dsp-volume") and ensure volume adjustment takes effect.
